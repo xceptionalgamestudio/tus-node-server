@@ -100,7 +100,7 @@ describe('Server', () => {
         it('OPTIONS should return configuration', (done) => {
             request(server.listen())
             .options('/')
-            .expect(204, '', done)
+            .expect(204, '')
             .end((err, res) => {
                 res.headers.should.have.property('access-control-allow-methods');
                 res.headers.should.have.property('access-control-allow-headers');
@@ -115,14 +115,14 @@ describe('Server', () => {
             request(server.listen())
               .head('/')
               .set('Tus-Resumable', TUS_RESUMABLE)
-              .expect(404, '', done);
+              .expect(404, done);
         });
 
         it('POST should require Upload-Length header', (done) => {
             request(server.listen())
               .post(server.datastore.path)
               .set('Tus-Resumable', TUS_RESUMABLE)
-              .expect(412, {}, done);
+              .expect(412, done);
         });
 
         it('POST should require non negative Upload-Length number', (done) => {
@@ -148,7 +148,7 @@ describe('Server', () => {
               .set('Upload-Length', 300)
               .set('Upload-Metadata', 'foo aGVsbG8=, bar d29ynGQ=')
               .set('Content-Type', 'application/false')
-              .expect(201, {}, done)
+              .expect(201, {})
               .end((err, res) => {
                   res.headers.should.have.property('location');
                   done();
